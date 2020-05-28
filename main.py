@@ -33,7 +33,7 @@ class TextSummarization(object):
         stemmerFactory = StemmerFactory()
         self.stemmer = stemmerFactory.create_stemmer()
 
-    def summarize(self,document, summarized_level = 2):
+    def summarize(self,document, summarized_level = 2, details = False):
         self.document = document
         self.template_doc = self.document.split(". ")
         self.splitted_documents = self.document.lower().split(". ")
@@ -48,7 +48,8 @@ class TextSummarization(object):
         self.sorted_sentence_weight.sort(reverse = True)
         self.used_index = self.find_used_index(summarized_level)
         self.summarized_documents = self.get_sentence_by_index()
-        self.show_details(summarized_level)
+        if details == True:
+            self.show_details(summarized_level)
         return self.summarized_documents
 
     def show_details(self,summarized_level):
@@ -177,4 +178,4 @@ class TextSummarization(object):
 if __name__ == "__main__":
     document = "Sekarang saya sedang suka memasak. Masak kesukaan saya sekarang adalah nasi goreng. Cara memasak nasi goreng adalah nasi digoreng. Nasi goreng dapat dimakan dengan berbagai macam lauk. Lauk kesukaan saya adalah telur goreng untuk dimakan bersama nasi goreng. Selain itu lauk ayam goreng juga enak untuk dimakan bersama nasi goreng"
     a = TextSummarization()
-    print(a.summarize(document))
+    print(a.summarize(document,details=True))
